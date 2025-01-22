@@ -155,7 +155,7 @@ public class ConditionService {
 		public void grade() {
 			
 			System.out.print(" 이름 : ");
-			String name = sc.next();
+			String name = sc.next(); // 입력 버퍼에서 다음 문자열(단어) 얻어오기
 			
 			System.out.println(" 중간고사 성적 : ");
 			double midterm = sc.nextDouble();
@@ -166,30 +166,56 @@ public class ConditionService {
 			System.out.println(" 과제 점수 : ");
 			double hwPoint = sc.nextDouble();
 			
+			// 점수 합계
 			double point = (midterm * 0.4) + (finalExam * 0.5) + (hwPoint * 0.1);
 			
 			String grade;
-			if ( point >= 95) {
-				grade = "A+";
-			} else  if( point >= 90) {
-				grade = "A";
-			}else  if( point >= 85) {
-				grade = "B+";
-			}else  if( point >= 80) {
-				grade = "B";
-			}else  if( point >= 75) {
-				grade = "C+";
-			}else  if( point >= 70) {
-				grade = "C";
-			}else  if( point >= 65) {
-				grade = "D+";
-			}else if( point >= 60) {
-				grade = "D";
-			}else {
-				grade = "F";
+			
+			// Java
+			
+//			if ( point >= 95) {
+//				grade = "A+";
+//			} else  if( point >= 90) {
+//				grade = "A";
+//			}else  if( point >= 85) {
+//				grade = "B+";
+//			}else  if( point >= 80) {
+//				grade = "B";
+//			}else  if( point >= 75) {
+//				grade = "C+";
+//			}else  if( point >= 70) {
+//				grade = "C";
+//			}else  if( point >= 65) {
+//				grade = "D+";
+//			}else if( point >= 60) {
+//				grade = "D";
+//			}else {
+//				grade = "F";
+//			}
+			
+			// (int)sum/10
+			// - point를 먼저 int로 강제 형변환 후 10으로 나눔
+			// -> 십의자리 숫자만 남기는 식
+			switch((int)point/10) { // switch () 내에는 정수/문자열만 작성 가능
+			
+			// 하나의 case에 여러 경우를 , 기호를 이용해서 작성 가능
+			// (Java만 가능 JS 불가능)
+			case 9, 10 : grade = "A"; break;
+			case 8 : grade = "B"; break;
+			case 7 : grade = "C"; break;
+			case 6 : grade = "D";break;
+			default: grade = "F"; 
 			}
 			
-			System.out.println();
+			
+			// [일의자리 생각]
+			// 합계가 100점 또는 60점대 이상이면서
+			// 나머지가 5이상인 경우 (65~, 75~, 85~, 95~)
+			if(point == 100 || point >= 60.0 && point % 10 >=5) {
+				grade += "+";
+			}
+			
+		
       System.out.printf("%s의 최종 점수 : %.1f점\n", name, point);
       System.out.printf("성적 : %s\n", grade);
 			
