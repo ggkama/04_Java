@@ -134,18 +134,31 @@ public class LoopPractice {
 		
 		
 		
+//		public void practice7() {
+//			System.out.print("정수 입력 : ");
+//			int num = sc.nextInt();
+//			
+//				for (int i = 1; i <= num; i++) {
+//      
+//          for (int j = 1; j <= i; j++) {
+//          	System.out.printf("*");
+//          }
+//          System.out.println();
+//		}
+//				
+//		}
+		
+		// 강사님 답
 		public void practice7() {
-			System.out.print("정수 입력 : ");
-			int num = sc.nextInt();
+			System.out.print("정수 입력");
+			int input = sc.nextInt();
 			
-				for (int i = 1; i <= num; i++) {
-      
-          for (int j = 1; j <= i; j++) {
-          	System.out.printf("*");
-          }
-          System.out.println();
-		}
-				
+			for(int row =1 ; row <= input; row++) {
+				for(int col = 1 ; col<= input ; col++) {
+					System.out.printf("*");
+				}
+				System.out.println();
+			}
 		}
 		
 		
@@ -211,15 +224,20 @@ System.out.println();
 			
 				for (int i = 1; i <= num; i++) {
       
-          for (int j = 1; j <= 2*num-1; j++) {
+          for (int j = 1; j <= 2*i-1; j++) {
           	System.out.printf(" ");
-          }
+        }
           for (int k = 1; k <= i; k++) {
           	System.out.printf("*");
-          }
+        }
           System.out.println();
 		}
 		}
+		
+		
+
+		
+		
 		
 		
 		
@@ -229,21 +247,23 @@ System.out.println();
 	
 			
 			for (int i = 1; i <= num; i++) {
-				if(i == 1 || i == num) {
-					System.out.print("*");
-				}
 				
-        for (int j = 1; j <= num; j++) {
-            if (i != 1 || i != num) {
-                System.out.print(" ");
-            } else {
-                System.out.print(" ");
-            }
+				for(int j=1 ; j <= num ; j++) {
+					
+					if(i == 1 || i == num || j == 1 || j == num) {
+					
+					System.out.print("*");
+				}else {
+				System.out.println(" ");
         }
-        System.out.println();
-    }
-
+					
+				}}
 		}
+    
+			
+
+
+	
 		
 		
 		
@@ -299,7 +319,7 @@ System.out.println();
 			int count = 0;
 			
 			if(num < 2) {
-				System.out.println(" 잘못 입력하셨습니다.");
+				System.out.println(" 잘못 .");
 				return;
 			}
 			
@@ -318,10 +338,35 @@ System.out.println();
 		
 		
 		
-//		public void practice16() {
-//			
-//			
-//		}
+		public void practice16() {
+			System.out.print("숫자 : ");
+			int num = sc.nextInt();
+			
+			int count = 0; // 소수의 개수를 세기 위한 변수
+			
+			// 2부터 입력 받은 수 까지 1개씩 접근하는 for문
+			for(int i=2 ; i<=num ; i++) {
+				boolean flag = true;
+				// true인 경우 : 소수 O
+				// false인 경우 : 소수 X
+				
+				// 1과 자기자신(num)을 뺀 정수를 한개씩 접근
+				for(int x=2 ; x<i ; x++) {
+				
+					if (i % x == 0) { // 1. 자기자신 빼고 나누어 떨어지는 수 존재
+						flag = false;
+						break;
+					}
+				}
+				if(flag) { // 소수라고 판별된 경우 수행
+					System.out.print(i + " ");
+					count++;
+				}
+			}
+			System.out.printf("\n2부터 %d까지 소수의 개수는 %d개 입니다 : " , num, count);
+			
+			
+		}
 }
 
 
