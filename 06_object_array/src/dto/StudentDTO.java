@@ -96,7 +96,7 @@ public class StudentDTO {
 		// HTML : 100 / CSS : 50 / JS : 70 / Java : 100
 		
 		return String.format(
-				"[%s] %s(%c)_\n	"
+				"[%s] %s(%c)\n"
 				+ "HTML : %d / CSS : %d / JS : %d / Java : %d", 
 				studentNumber, name, gender, html, css, js, java);
 				
