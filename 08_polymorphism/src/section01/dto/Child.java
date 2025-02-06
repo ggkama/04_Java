@@ -8,7 +8,7 @@ public class Child extends Parent{
 
 	private String car;
 	
-	public Child() {
+	public Child() { 
 		super();
 	}
 	
@@ -29,6 +29,9 @@ public class Child extends Parent{
 	@Override
 	public String toString() {
 		// Parent [lastName=제갈, money=10000] / Child [car=car변수]
-		return super.toString() + " / Child [car="+car+"]";
+		return super.toString() + " / Child [car=" + car + "]";
 	}
+	
+	
+	
 }
