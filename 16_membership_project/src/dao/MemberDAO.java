@@ -19,7 +19,7 @@ public interface MemberDAO {
      * @return memberList
      */
     List<Member> getMemberList();
-
+    
 
     /**
      * 회원 추가

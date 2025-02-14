@@ -57,8 +57,6 @@ public class MemberServiceImpl implements MemberService{
     		if(!dao.addMember(member)) {
     			return false;
     		}
-    	
-    	
         return true;
     }
 
@@ -85,39 +83,85 @@ public class MemberServiceImpl implements MemberService{
 
 
     // 금액 누적
+    // 1. 기존 금액에 새로운 금액 추가
+    // 2. 등급 변경 기능
+    // 3. 변경된 내용 dao 저장
+    // 4. 등급 변경 결과 메시지 출력
     @Override
     public String updateAmount(Member target, int acc) throws IOException {
-    	
-    	
-        return null; // 결과 문자열 반환
-        
-        //ex)
-        // 2000 -> 100000
-        // * 골드 * 등급으로 변경 되셨습니다
+    // 기존 금액에 새로운 금액을 추가
+    int prevAmount = target.getAmount();
+    int newAmount = prevAmount + acc;
+    target.setAmount(newAmount);
+
+    // 등급 변경 기능
+    int prevGradeIndex = target.getGrade();
+    int newGradeIndex;
+
+    if (newAmount >= 1000000) {
+        newGradeIndex = Member.DIAMOND; // 다이아
+    } else if (newAmount >= 100000) {
+        newGradeIndex = Member.GOLD; // 골드
+    } else {
+        newGradeIndex = Member.COMMON; // 일반
     }
+
+    target.setGrade(newGradeIndex);
+
+    // 변경 사항 저장
+    dao.saveFile();
+
+    // 결과 메시지 반환
+    String result = prevAmount + " -> " + newAmount;
+    if (prevGradeIndex != newGradeIndex) {
+        result += "\n * " + gradeArr[newGradeIndex] + " * 등급으로 변경 되셨습니다.";
+    }
+
+    return result;
+}
+    	
+    
 
 
     //회원 정보(전화번호) 수정
+  
     @Override
     public String updateMember(Member target, String phone) throws IOException {
+    	String prePhone = target.getPhone();
     	
+    	for(Member m : dao.getMemberList()) {
+    		if(m.getPhone().equals(phone)) {
+    			return "### 중복되는 휴대폰 번호가 존재합니다 ###";
+    		}
+    	}
     	
-        return null; // 결과 문자열 반환
-        
-        // ex)
-        // 홍길동님의 전화번호가 변경 되었습니다
-        // 01012341234 -> 01044445555
+      // 전화번호 변경
+      target.setPhone(phone);
+
+      // 변경 사항 저장
+      dao.saveFile();
+
+      // 결과 메시지 반환
+      return target.getName() + "님의 전화번호가 변경 되었습니다.\n" 
+      + prePhone + " -> " + phone;
+      
+      
     }
+
 
 
     // 회원 탈퇴
     @Override
     public String deleteMember(Member target) throws IOException {
-
-
-        return null; // 결과 문자열 반환
-        // ex)
-        // "홍길동 회원이 탈퇴 처리 되었습니다"
+    	int index = dao.getMemberList().indexOf(target);
+    	dao.getMemberList().remove(index);
+//    	boolean res = dao.getMemberList().remove(target);
+    	// 변경사항 저장 
+    	dao.saveFile();
+//    	res()
+      return null;
     }
+    
+    
 
 }
