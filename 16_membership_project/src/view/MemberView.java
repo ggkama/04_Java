@@ -228,13 +228,13 @@ public class MemberView {
 				
 			}
 			System.out.println("선택할 회원의 번호를 입력 : "); //2-1-1 이름 선택
-			num = sc.nextInt();
+			num = sc.nextInt()-1;
 		} 	
 		// 변경할 전화번호 입력받기
 		System.out.println("수정할 전화번호 입력 : ");
 		String phone = sc.next();
 		
-		String result = service.updateMember(searchResults.get(num-1),phone);
+		String result = service.updateMember(searchResults.get(num),phone);
 		
 		System.out.println(result);
 		
